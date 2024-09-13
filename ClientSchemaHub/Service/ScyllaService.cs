@@ -2,11 +2,7 @@
 using Cassandra;
 using ClientSchemaHub.Models.DTO;
 using ClientSchemaHub.Service.IService;
-using System;
-using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ClientSchemaHub.Service
 {
@@ -37,7 +33,7 @@ namespace ClientSchemaHub.Service
         {
             var cluster = Cluster.Builder()
                 .AddContactPoint(connectionDTO.IPAddress)
-                .WithPort(connectionDTO.PortNumber ?? 8000)
+                .WithPort(connectionDTO.PortNumber ?? 9042)
                 .Build();
             return cluster.Connect(connectionDTO.Keyspace);
         }

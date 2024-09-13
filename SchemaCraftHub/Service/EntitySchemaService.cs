@@ -82,7 +82,7 @@ namespace SchemaCraftHub.Service
         public async Task<List<TableMetaDataDTO>> GetTablesByHostProviderDatabaseAsync(
     string? hostName, string provider, string? databaseName,
     string? accessKey, string? secretKey, string? region,
-    string keyspace, string ec2Instance, string ipAddress, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket)
+    string? keyspace, string? ec2Instance, string? ipAddress, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket)
         {
             try
             {
@@ -230,7 +230,7 @@ namespace SchemaCraftHub.Service
         public async Task<TableMetaDataDTO> GetTableByHostProviderDatabaseTableNameAsync(
     string? hostName, string provider, string? databaseName,
     string? accessKey, string? secretKey, string? region,
-    string keyspace, string ec2Instance, string ipAddress,
+    string? keyspace, string? ec2Instance, string? ipAddress,
     string? tableName, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket)
         {
             try
@@ -296,7 +296,6 @@ namespace SchemaCraftHub.Service
                                 .FirstOrDefaultAsync(t => t.IPAddress.ToLower() == ipAddress.ToLower() &&
                                                           t.Keyspace.ToLower() == keyspace.ToLower() &&
                                                           t.Provider.ToLower() == provider.ToLower() &&
-                                                          t.DatabaseName.ToLower() == databaseName.ToLower() &&
                                                           t.Ec2Instance.ToLower() == ec2Instance.ToLower() &&
                                                           t.EntityName.ToLower() == tableName.ToLower());
 
@@ -310,9 +309,7 @@ namespace SchemaCraftHub.Service
                                 Id = table.Id,
                                // EntityName = row.GetValue<string>("table_name"),
                                EntityName = tableName,
-                                DatabaseName = keyspace,
                                 Provider = provider,
-                                HostName = hostName,
                                 IPAddress = ipAddress,
                                 Keyspace = keyspace,
                                 Ec2Instance = ec2Instance
@@ -957,7 +954,7 @@ namespace SchemaCraftHub.Service
                 throw new ApplicationException("An error occurred while updating columns.", ex);
             }
         }
-        public async Task<List<ColumnDTO>> GetColumnsByHostProviderDatabaseTableNameAsync(string? hostName, string provider, string? databaseName, string? tableName, string? accessKey, string? secretKey, string? region, string keyspace, string ec2Instance, string ipAddress, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket)
+        public async Task<List<ColumnDTO>> GetColumnsByHostProviderDatabaseTableNameAsync(string? hostName, string provider, string? databaseName, string? tableName, string? accessKey, string? secretKey, string? region, string? keyspace, string? ec2Instance, string? ipAddress, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket)
         {
             try
             {
