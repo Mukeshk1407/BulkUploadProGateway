@@ -141,6 +141,7 @@ namespace SchemaCraftHub.Service
                     var tables = await _context.TableMetaDataEntity
                         .Where(table => table.InfluxDbBucket.ToLower() == influxDbBucket.ToLower() &&
                                         table.InfluxDbOrg.ToLower() == influxDbOrg.ToLower() &&
+                                        table.Provider.ToLower() == provider.ToLower() &&
                                         table.InfluxDbToken.ToLower() == influxDbToken.ToLower())
                         .ToListAsync();
 
@@ -150,7 +151,8 @@ namespace SchemaCraftHub.Service
                         EntityName = table.EntityName,
                         InfluxDbBucket = table.InfluxDbBucket,
                         InfluxDbToken = table.InfluxDbToken,
-                        InfluxDbOrg = table.InfluxDbOrg
+                        InfluxDbOrg = table.InfluxDbOrg,
+                        Provider = table.Provider
                         // Map other properties as needed
                     }).ToList();
                 }
