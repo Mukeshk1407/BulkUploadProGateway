@@ -47,6 +47,7 @@
   <ItemGroup>
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.304.4" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.301" />
+    <PackageReference Include="EPPlus" Version="7.3.1" />
     <PackageReference Include="InfluxDB.Client" Version="4.17.0" />
     <PackageReference Include="InfluxDB.Client.Core" Version="4.17.0" />
     <PackageReference Include="Cassandra.NET" Version="1.0.7" />
