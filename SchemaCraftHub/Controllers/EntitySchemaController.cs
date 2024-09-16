@@ -83,7 +83,7 @@ namespace SchemaCraftHub.Controllers
         }
 
         [HttpGet("tables/GetTablesByHostProviderDatabase")] //display list in frontend
-        public async Task<IActionResult> GetTablesByHostProviderDatabase(string? hostName, string provider, string? databaseName, string? accessKey, string? secretkey, string? region, string keyspace, string ec2Instance, string ipAddress, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket)
+        public async Task<IActionResult> GetTablesByHostProviderDatabase(string? hostName, string provider, string? databaseName, string? accessKey, string? secretkey, string? region, string? keyspace, string? ec2Instance, string? ipAddress, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace SchemaCraftHub.Controllers
         }
 
         [HttpGet("tables/GetTableByHostProviderDatabaseTableName")]
-        public async Task<IActionResult> GetTableByHostProviderDatabaseTableName(string? hostName, string provider, string? databaseName, string? accessKey, string? secretkey, string? region, string keyspace, string ec2Instance, string ipAddress, string? tableName, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket)
+        public async Task<IActionResult> GetTableByHostProviderDatabaseTableName(string? hostName, string provider, string? databaseName, string? accessKey, string? secretkey, string? region, string? keyspace, string? ec2Instance, string? ipAddress, string? tableName, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket)
         {
             try
             {
@@ -485,7 +485,7 @@ namespace SchemaCraftHub.Controllers
         }
 
         [HttpGet("columns/GetColumnsByHostProviderDatabaseTableName")]
-        public async Task<IActionResult> GetColumnsByHostProviderDatabaseTableName(string? hostName, string provider, string? databaseName, string? tableName, string? accessKey, string ?secretKey, string? region, string keyspace, string ec2Instance, string ipAddress, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket)
+        public async Task<IActionResult> GetColumnsByHostProviderDatabaseTableName(string? hostName, string provider, string? databaseName, string? tableName, string? accessKey, string ?secretKey, string? region, string? keyspace, string? ec2Instance, string? ipAddress, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket)
         {
             try
             {
