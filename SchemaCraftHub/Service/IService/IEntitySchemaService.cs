@@ -6,8 +6,8 @@ namespace SchemaCraftHub.Service.IService
     {
         public Task<List<TableMetaDataDTO>> GetAllTablesAsync();
         public Task<TableMetaDataDTO> GetTableByIdAsync(int id);
-        public Task<List<TableMetaDataDTO>> GetTablesByHostProviderDatabaseAsync(string? hostName, string provider, string? databaseName, string? accessKey, string? secretKey, string? region, string keyspace, string ec2Instance, string ipAddress, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket);
-        public Task<TableMetaDataDTO> GetTableByHostProviderDatabaseTableNameAsync(string? hostName, string provider, string? databaseName, string? accessKey, string? secretKey, string? region, string keyspace, string ipAddress, string ec2Instance, string? tableName, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket);
+        public Task<List<TableMetaDataDTO>> GetTablesByHostProviderDatabaseAsync(string? hostName, string provider, string? databaseName, string? accessKey, string? secretKey, string? region, string? keyspace, string? ec2Instance, string? ipAddress, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket);
+        public Task<TableMetaDataDTO> GetTableByHostProviderDatabaseTableNameAsync(string? hostName, string provider, string? databaseName, string? accessKey, string? secretKey, string? region, string? keyspace, string? ipAddress, string? ec2Instance, string? tableName, string? influxDbToken, string? influxDbOrg, string? influxDbUrl, string? influxDbBucket);
         public Task<List<ColumnDTO>> GetAllColumnsAsync();
         public Task<ColumnDTO> GetColumnByIdAsync(int id);
         public Task<ColumnDTO> GetColumnByIdAndEntityIDAsync(int id, int entityId);
