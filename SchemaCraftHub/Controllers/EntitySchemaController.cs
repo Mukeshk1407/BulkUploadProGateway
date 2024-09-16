@@ -87,7 +87,7 @@ namespace SchemaCraftHub.Controllers
         {
             try
             {
-                var tables = await _entitySchemaService.GetTablesByHostProviderDatabaseAsync(hostName, provider, databaseName, accessKey, secretkey, region, keyspace, ec2Instance, ipAddress, influxDbOrg, influxDbUrl, influxDbBucket,influxDbToken);
+                var tables = await _entitySchemaService.GetTablesByHostProviderDatabaseAsync(hostName, provider, databaseName, accessKey, secretkey, region, keyspace, ec2Instance, ipAddress, influxDbToken,influxDbOrg, influxDbUrl, influxDbBucket);
 
                 var responseModel = new APIResponse
                 {
@@ -490,7 +490,7 @@ namespace SchemaCraftHub.Controllers
             try
             {
 
-                var table = await _entitySchemaService.GetColumnsByHostProviderDatabaseTableNameAsync(hostName, provider, databaseName, tableName, accessKey, secretKey, region, keyspace, ec2Instance, ipAddress, influxDbBucket, influxDbOrg,influxDbToken,influxDbUrl);
+                var table = await _entitySchemaService.GetColumnsByHostProviderDatabaseTableNameAsync(hostName, provider, databaseName, tableName, accessKey, secretKey, region, keyspace, ec2Instance, ipAddress,influxDbToken, influxDbOrg,influxDbUrl, influxDbBucket);
                 if (table == null)
                 {
                     return NotFound();
