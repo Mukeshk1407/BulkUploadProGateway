@@ -117,6 +117,7 @@ namespace SchemaCraftHub.Service
                     var tables = await _context.TableMetaDataEntity
                         .Where(table => table.Ec2Instance.ToLower() == ec2Instance.ToLower() &&
                                         table.IPAddress.ToLower() == ipAddress.ToLower() &&
+                                        table.Provider.ToLower() == provider.ToLower() &&
                                         table.Keyspace.ToLower() == keyspace.ToLower())
                         .ToListAsync();
 
