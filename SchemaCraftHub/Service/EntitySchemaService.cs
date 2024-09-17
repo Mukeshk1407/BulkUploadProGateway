@@ -234,8 +234,7 @@ namespace SchemaCraftHub.Service
                                 .FirstOrDefaultAsync(t => t.IPAddress.ToLower() == ipAddress.ToLower() &&
                                                           t.Keyspace.ToLower() == keyspace.ToLower() &&
                                                           t.Provider.ToLower() == provider.ToLower() &&
-                                                          t.Ec2Instance.ToLower() == ec2Instance.ToLower() &&
-                                                          t.EntityName.ToLower() == tableName.ToLower());
+                                                          t.Ec2Instance.ToLower() == ec2Instance.ToLower());
 
                             if (table == null)
                             {
