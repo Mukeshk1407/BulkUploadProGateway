@@ -112,7 +112,7 @@ namespace SchemaCraftHub.Service
 
                 }
 
-                 if (provider.Equals("Scylla", StringComparison.OrdinalIgnoreCase))
+                 else if (provider.Equals("Scylla", StringComparison.OrdinalIgnoreCase))
                 {
 
                     var tables = await _context.TableMetaDataEntity
@@ -138,7 +138,7 @@ namespace SchemaCraftHub.Service
 
                 }
 
-                 if (provider.Equals("Influx", StringComparison.OrdinalIgnoreCase))
+                 else if (provider.Equals("Influx", StringComparison.OrdinalIgnoreCase))
                 {
                     var tables = await _context.TableMetaDataEntity
                         .Where(table => table.InfluxDbBucket.ToLower() == influxDbBucket.ToLower() &&
