@@ -103,7 +103,8 @@ namespace SchemaCraftHub.Service
                         EntityName = table.EntityName,
                         AccessKey = table.AccessKey,
                         SecretKey = table.SecretKey,
-                        Region = table.Region
+                        Region = table.Region,
+                        Provider = table.Provider
                         // Map other properties as needed
                     }).ToList();
 
@@ -127,7 +128,8 @@ namespace SchemaCraftHub.Service
                         EntityName = table.EntityName,
                         Ec2Instance = table.Ec2Instance,
                         IPAddress = table.IPAddress,
-                        Keyspace = table.Keyspace
+                        Keyspace = table.Keyspace,
+                        Provider = table.Provider
                         // Map other properties as needed
                     }).ToList();
 
