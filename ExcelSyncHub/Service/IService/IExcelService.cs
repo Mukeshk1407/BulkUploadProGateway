@@ -7,7 +7,7 @@ namespace ExcelSyncHub.Service.IService
 {
     public interface IExcelService
     {
-        public byte[] GenerateExcelFile(List<ColumnMetaDataDTO> columns, int? parentId);
+        public byte[] GenerateExcelFile(List<ColumnMetaDataDTO> columns, int? parentId, string UserName, string Password, string DataBase, string HostName);
         public int GetEntityIdByEntityName(string entityName);
         public DataTable ReadExcelFromFormFile(IFormFile excelFile);
 

@@ -12,6 +12,10 @@ using Newtonsoft.Json;
 using ExcelSyncHub.Service.IService;
 using Spire.Xls.Core;
 using System.Net;
+using InfluxDB.Client.Api.Domain;
+using System.IO.Packaging;
+using Microsoft.Data.SqlClient;
+using Npgsql;
 
 
 namespace ExcelSyncHub.Service
@@ -29,7 +33,7 @@ namespace ExcelSyncHub.Service
         }
 
         //Generate Excel
-        public byte[] GenerateExcelFile(List<ColumnMetaDataDTO> columns, int? parentId)
+        public byte[] GenerateExcelFile(List<ColumnMetaDataDTO> columns, int? parentId , string UserName, string Password, string DataBase, string HostName)
         {
             Workbook workbook = new Workbook();
             Worksheet worksheet = workbook.Worksheets[0];
@@ -163,15 +167,94 @@ namespace ExcelSyncHub.Service
             AddDataValidation(columnNamesWorksheet, columns, parentId);
 
 
+            Worksheet foreignKeyWorksheet = workbook.Worksheets.Add("ForeignKeyData");
+            foreignKeyWorksheet.DefaultColumnWidth = 15;
+            foreignKeyWorksheet.DefaultRowHeight = 15;
+
+            // Add headers for foreign key data
+            foreignKeyWorksheet.Range["A1"].Text = "Foreign Key Column";
+            foreignKeyWorksheet.Range["B1"].Text = "Referenced Table";
+            foreignKeyWorksheet.Range["C1"].Text = "Referenced Column";
+            foreignKeyWorksheet.Range["A1:C1"].Style.Font.IsBold = true;
+            foreignKeyWorksheet.Range["A1:C1"].Style.Color = Color.Blue;
+            foreignKeyWorksheet.Range["A1:C1"].Style.Font.Color = Color.White;
+
+            // Example: Populate the sheet with foreign key data (this data would likely come from another data source)
+            // You need to replace this part with actual foreign key data
+            //var foreignKeyData = new List<(string ForeignKeyColumn, string ReferencedTable, string ReferencedColumn)>
+            //    {
+            //        ("CustomerId", "Customer", "Id"),
+            //        ("OrderId", "Order", "Id"),
+            //        ("ProductId", "Product", "Id")
+            //    };
+
+            var foreignKeyData = FetchForeignKeyDataFromColumnMetaData(UserName, Password, DataBase, HostName);
+
+
+            for (int i = 0; i < foreignKeyData.Count; i++)
+            {
+                var data = foreignKeyData[i];
+                int row = i + 2; // Start populating from the second row
+                foreignKeyWorksheet.Range[row, 1].Text = data.ForeignKeyColumn;
+                foreignKeyWorksheet.Range[row, 2].Text = data.ReferencedTable;
+                foreignKeyWorksheet.Range[row, 3].Text = data.ReferencedColumn;
+            }
+
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 workbook.SaveToStream(memoryStream, FileFormat.Version2013);
                 return memoryStream.ToArray();
             }
+
         }
 
-        // Helper method to set cell text
-        private static void SetCellText(IWorksheet worksheet, int row, int col, string value)
+
+private List<(string ForeignKeyColumn, string ReferencedTable, string ReferencedColumn)> FetchForeignKeyDataFromColumnMetaData(string UserName, string Password, string DataBase, string HostName)
+    {
+        var foreignKeyData = new List<(string ForeignKeyColumn, string ReferencedTable, string ReferencedColumn)>();
+
+        // PostgreSQL connection string
+        var connectionString = $"Host={HostName};Database={DataBase};Username={UserName};Password={Password};SSL Mode=Prefer;Trust Server Certificate=True;";
+
+        using (var connection = new NpgsqlConnection(connectionString))
+        {
+            connection.Open();
+            string query = @"
+            SELECT 
+                cm.""EntityId"" AS ForeignKeyColumn,
+                rt.""ReferenceColumnID"" AS ReferencedColumn,
+                rt.""ReferenceEntityID"" AS ReferencedEntityID
+            FROM 
+                ""ColumnMetaDataEntity"" cm
+            JOIN 
+                ""ColumnMetaDataEntity"" rt ON cm.""ReferenceEntityID"" = rt.""EntityId""
+            WHERE 
+                cm.""ReferenceEntityID"" IS NOT NULL";
+
+            using (var command = new NpgsqlCommand(query, connection))
+            {
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var foreignKeyColumn = reader["ForeignKeyColumn"].ToString();
+                        var referencedTable = reader["ReferencedColumn"].ToString(); // You may want to get this from another query or table if needed.
+                        var referencedColumn = reader["ReferencedEntityID"].ToString();
+
+                        foreignKeyData.Add((foreignKeyColumn, referencedTable, referencedColumn));
+                    }
+                }
+            }
+        }
+
+        return foreignKeyData;
+    }
+
+
+
+
+    // Helper method to set cell text
+    private static void SetCellText(IWorksheet worksheet, int row, int col, string value)
         {
             worksheet.Range[row, col].Text = string.IsNullOrEmpty(value) ? string.Empty : value;
         }

@@ -30,13 +30,13 @@ namespace ExcelSyncHub.Controllers
         }
 
         [HttpPost("generate")]
-        public IActionResult GenerateExcelFile([FromBody] List<ColumnMetaDataDTO> columns,int? logId)
+        public IActionResult GenerateExcelFile([FromBody] List<ColumnMetaDataDTO> columns,int? logId, string UserName, string Password, string DataBase, string HostName)
         {
             try
             {
                 int? parentId = logId;
 
-                byte[] excelBytes = _excelService.GenerateExcelFile(columns, parentId);
+                byte[] excelBytes = _excelService.GenerateExcelFile(columns, parentId, UserName, Password, DataBase, HostName);
                 var fileContentResult = new FileContentResult(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                 {
                     FileDownloadName = "columns.xlsx"
